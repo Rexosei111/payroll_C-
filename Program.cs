@@ -15,7 +15,7 @@ namespace Payroll
                 new Employee("Lali Agbozo", "R3"),
                 new Employee("Maureen Peprah", "R4")};
 
-            Console.WriteLine("Welcome to QFace Payroll system \n Press 1: To view all Employee on Payroll \n Press 2: To add Employee to payroll \n Press 3: To Generate Payslip for all Employees \n");
+            Console.WriteLine("Welcome to QFace Payroll system \n Press 1: To view all Employee on Payroll \n Press 2: To add Employee to payroll \n Press 3: To Generate Payslip for all Employees \n Press 4: To remove an employee from payroll \n Press 0: To exit");
         start: String userInput = Console.ReadLine();
             switch (userInput)
             {
@@ -28,6 +28,12 @@ namespace Payroll
                 case "3":
                     generate_paylips(employeeList);
                     goto start;
+                case "4":
+                    remove_employee(employeeList);
+                    goto start;
+                case "0":
+                    Environment.Exit(0);
+                    break;
                 default:
                     Console.WriteLine("Invalid Input");
                     goto start;
@@ -80,6 +86,26 @@ namespace Payroll
 
             PaySlip slip = new PaySlip(newYear, newMonth);
             slip.generatePayslip(employees);
+        }
+
+        public static void remove_employee(List<Employee> employees)
+        {
+            Console.Write("Employee ID: ");
+            string empID = Console.ReadLine();
+            string ID = empID.Trim();
+            bool deleted = false;
+            foreach (Employee employee in employees)
+            {
+                if (employee.Id == ID)
+                {
+                    employees.Remove(employee);
+                    Console.WriteLine("Employee removed successfully");
+                    deleted = true;
+                    break;
+                }
+            }
+            if (!deleted)
+                Console.WriteLine($"Employee with ID {ID} not found");
         }
     }
 }
