@@ -80,6 +80,7 @@ namespace Payroll
             decimal total_allowances = get_sum(allowances.Values);
             decimal total_deductions = get_sum(deductions.Values);
             var path = $"Slips/{Year.ToString()}/{(monthsOfYear)Month}";
+            Console.WriteLine("Generating slips...");
             Directory.CreateDirectory(@path);
 
             foreach (Employee employee in employees)
@@ -122,6 +123,8 @@ namespace Payroll
                 File.WriteAllText($"{path}/{employee.Name}.txt", builder.ToString());
 
             }
+
+            Console.WriteLine("Done");
 
         }
 
